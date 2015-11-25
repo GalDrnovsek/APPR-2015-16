@@ -1,4 +1,4 @@
-# Analiza podatkov s programom R, 2015/16
+# Analiza šahovskih otvoritev
 
 Avtor: Gal Drnovšek
 
