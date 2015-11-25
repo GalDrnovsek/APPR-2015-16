@@ -4,10 +4,8 @@ Avtor: Gal Drnovšek
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2015/16.
 
-## Tematika
-
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal. Tukaj boste
-napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Analiziral bom statistiko šahovskih otvoritev (najbolj pogosto igrane otvoritve, delež zmag igralcev z belimi figurami, črnimi figurami in remijev). Nato bom pogledal še, iz kje prihajajo najboljši šahisti na svetu.
+Podatke bom pridobil na: http://www.becomeawordgameexpert.com/stats.htm, http://czyzewski.org/chess/open-stats.html in še kje drugje.
 
 ## Program
 
