@@ -6,9 +6,11 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2015/16.
 
 Analiziral bom statistiko šahovskih otvoritev-najbolj pogosto igrane otvoritve, delež zmag igralcev z belimi figurami, črnimi figurami in remijev (za posamezne otvoritve), ter najpogosteje igrane prve poteze in statistiko le-teh za igralce z belimi in črnimi figurami. Nato bom pogledal še, iz kje prihajajo najboljši šahisti na svetu. Cilj je izcedeti, katere šahovske otvoritve in prve poteze so statistično najboljše tako za igro z belimi kot za igro s črnimi figurami.
 Podatke bom pridobil na: 
+
 * http://www.becomeawordgameexpert.com/stats.htm 
 * http://czyzewski.org/chess/open-stats.html 
 * http://chesstempo.com/game-database.html?gclid=Cj0KEQiA1dWyBRDqiJye6LjkhfIBEiQAw06ITjbtIKfD8ebXh65e6NXvtT77GeLm4-JKArG2dOJPuRwaApZ98P8HAQ
+
 in morda še kje drugje.
 
 ## Program
