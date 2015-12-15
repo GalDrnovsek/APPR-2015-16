@@ -15,3 +15,4 @@ names(prva_tabela)[2] <- "White win percentage"
 names(prva_tabela)[3] <- "Black win percentage"
 names(prva_tabela)[4] <- "Draw percentage"  
 prva_tabela <- prva_tabela[-1,]
+cifre <- as.numeric(row.names(prva_tabela))
