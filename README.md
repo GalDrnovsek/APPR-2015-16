@@ -9,7 +9,7 @@ Podatke bom pridobil na:
 
 * http://www.becomeawordgameexpert.com/stats.htm 
 * http://czyzewski.org/chess/open-stats.html 
-* http://chesstempo.com/game-database.html?gclid=Cj0KEQiA1dWyBRDqiJye6LjkhfIBEiQAw06ITjbtIKfD8ebXh65e6NXvtT77GeLm4-JKArG2dOJPuRwaApZ98P8HAQ
+* https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country
 
 in morda še kje drugje.
 

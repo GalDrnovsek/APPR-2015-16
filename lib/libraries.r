@@ -1,4 +1,7 @@
 library(knitr)
+require(dplyr)
+require(rvest)
+require(gsubfn)
 
 # Uvozimo funkcije za delo z datotekami XML.
 source("lib/xml.r", encoding = "UTF-8")
