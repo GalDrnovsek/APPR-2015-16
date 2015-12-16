@@ -14,8 +14,6 @@ names(prva_tabela)[2] <- "White win (%)"
 names(prva_tabela)[3] <- "Black win (%)"
 names(prva_tabela)[4] <- "Draw (%)"  
 prva_tabela <- prva_tabela[-1,]
-
-
 row.names(prva_tabela) <- 1:137
 
 url1 <- "http://www.becomeawordgameexpert.com/stats.htm"
@@ -47,4 +45,4 @@ names(velemojstri)[3] <- "Overall GMs"
 velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:65
 velemojstri[,1] <- gsub("(Â\\s)*","",velemojstri[,1])
-
+velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
