@@ -1,10 +1,10 @@
-# Analiza šahovskih otvoritev
+# Analiza šahovske statistike
 
 Avtor: Gal Drnovšek
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2015/16.
 
-Analiziral bom statistiko šahovskih otvoritev-najbolj pogosto igrane otvoritve, delež zmag igralcev z belimi figurami, črnimi figurami in remijev (za posamezne otvoritve), ter najpogosteje igrane prve poteze in statistiko le-teh za igralce z belimi in črnimi figurami. Nato bom pogledal še, iz kje prihajajo najboljši šahisti na svetu. Cilj je izcedeti, katere šahovske otvoritve in prve poteze so statistično najboljše tako za igro z belimi kot za igro s črnimi figurami.
+Analiziral bom statistiko šahovskih otvoritev-delež zmag igralcev z belimi figurami, črnimi figurami in remijev (za posamezne otvoritve). Nato bom pogledal še, katere države imajo največ velemojstrov na prebivalca. Cilj je izvedeti, katere šahovske otvoritve so statistično najboljše tako za igro z belimi kot za igro s črnimi figurami.
 Podatke bom pridobil na: 
 
 * http://www.becomeawordgameexpert.com/stats.htm 
