@@ -15,6 +15,7 @@ names(prva_tabela)[3] <- "Black win (%)"
 names(prva_tabela)[4] <- "Draw (%)"  
 prva_tabela <- prva_tabela[-1,]
 
+
 row.names(prva_tabela) <- 1:137
 
 url1 <- "http://www.becomeawordgameexpert.com/stats.htm"
