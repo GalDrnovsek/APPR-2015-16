@@ -19,12 +19,31 @@ row.names(Chess_opening_statistics) <- 1:290
 
 tabela4 <- stran1 %>% html_nodes(xpath = "//table[2]") %>% html_table()
 Best_white_openings <- data.frame(tabela4)
+Best_white_openings$X1 <- NULL
+names(Best_white_openings)[1] <- "Opening name"
+names(Best_white_openings)[2] <- "White win(%)"
+names(Best_white_openings)[3] <- "Draw(%)"
+names(Best_white_openings)[4] <- "Black win(%)"
+names(Best_white_openings)[5] <- "Points per 100 games"
+Best_white_openings <- Best_white_openings[-1,]
+row.names(Best_white_openings) <- 1:10
 
 tabela5 <- stran1 %>% html_nodes(xpath = "//table[4]") %>% html_table()
 Best_black_openings <- data.frame(tabela5)
+Best_black_openings$X1 <- NULL
+names(Best_black_openings)[1] <- "Opening name"
+names(Best_black_openings)[2] <- "White win(%)"
+names(Best_black_openings)[3] <- "Draw(%)"
+names(Best_black_openings)[4] <- "Black win(%)"
+names(Best_black_openings)[5] <- "Points per 100 games"
+Best_black_openings <- Best_black_openings[-1,]
+row.names(Best_black_openings) <- 1:10
 
 tabela6 <- stran1 %>% html_nodes(xpath = "//table[6]") %>% html_table()
 Most_drawn_openings <- data.frame(tabela6)
+Most_drawn_openings$X1 <- NULL
+names(Most_drawn_openings)[1] <- "Opening name"
+names(Most_drawn_openings)[2] <- "Draw(%)"
 
 url2 <- "https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country"
 
@@ -55,4 +74,4 @@ prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-ggplot(data=Most_drawn_openings)
+
