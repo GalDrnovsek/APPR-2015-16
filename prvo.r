@@ -1,6 +1,7 @@
 require(dplyr)
 require(rvest)
 require(gsubfn)
+require(ggplot2)
 
 url1 <- "http://www.becomeawordgameexpert.com/stats.htm"
 #Over 2 million chess matches.
@@ -44,6 +45,14 @@ velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
 
 link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)"
 stran3 <- html_session(link3) %>% read_html(encoding = "UTF-8")
-tabela3 <- stran3 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
-prebivalstvo <- data.frame(tabela3)
+prebivalstvo <- stran3 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
+prebivalstvo <- prebivalstvo[-1,]
+names(prebivalstvo)[3] <- "Population" 
+prebivalstvo[,2] <- gsub("(Â\\s)*","",prebivalstvo[,2])
+prebivalstvo[,2] <- gsub("(\\[){1}(\\w){1,2}(\\]){1}","",prebivalstvo[,2])
+prebivalstvo[,1] <- gsub("(\\â){1}(\\€){1}(\\”){1}",NA,prebivalstvo[,1])
+prebivalstvo <- na.omit(prebivalstvo)
+row.names(prebivalstvo) <- 1:196
+prebivalstvo$Rank <- NULL
 
+ggplot(data=Most_drawn_openings)
