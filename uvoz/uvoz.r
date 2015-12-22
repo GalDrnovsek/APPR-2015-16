@@ -65,6 +65,8 @@ Most_drawn_openings <- data.frame(tabela6)
 Most_drawn_openings$X1 <- NULL
 names(Most_drawn_openings)[1] <- "Opening name"
 names(Most_drawn_openings)[2] <- "Draw(%)"
+Most_drawn_openings <- Most_drawn_openings[-1,]
+row.names(Most_drawn_openings) <- 1:10
 
 url2 <- "https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country"
 
@@ -82,6 +84,7 @@ velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:65
 velemojstri[,1] <- gsub("(Â\\s)*","",velemojstri[,1])
 velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
+topvelemojstri <- velemojstri[1:10,]
 
 link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)"
 stran3 <- html_session(link3) %>% read_html(encoding = "UTF-8")
@@ -95,5 +98,9 @@ prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-ggplot(data=Best_white_openings, aes(x=Best_white_openings$`Points per 100 games`,y=Best_white_openings$`Opening name`),stat=identity) + geom_bar(stat=identity)
+ggplot(data=Best_white_openings, aes(x=Best_white_openings$`Points per 100 games`,y=Best_white_openings$`Opening name`)) + geom_point()
+ggplot(data=Best_black_openings, aes(x=Best_black_openings$`Points per 100 games`,y=Best_black_openings$`Opening name`)) + geom_point()
+ggplot(data=Most_drawn_openings, aes(x=Most_drawn_openings$`Draw(%)`,y=Most_drawn_openings$`Opening name`)) + geom_point()
+ggplot(data=topvelemojstri, aes(x=topvelemojstri$`Active GMs`,y=topvelemojstri$Country)) + geom_point()
+
        
