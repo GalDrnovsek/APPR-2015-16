@@ -8,7 +8,7 @@ Analiziral bom statistiko šahovskih otvoritev-delež zmag igralcev z belimi fig
 Podatke bom pridobil na: 
 
 * http://www.becomeawordgameexpert.com/stats.htm 
-* http://czyzewski.org/chess/open-stats.html 
+* https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations) 
 * https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country
 
 in morda še kje drugje.
