@@ -64,7 +64,7 @@ tabela6 <- stran1 %>% html_nodes(xpath = "//table[6]") %>% html_table()
 Most_drawn_openings <- data.frame(tabela6)
 Most_drawn_openings$X1 <- NULL
 names(Most_drawn_openings)[1] <- "Opening name"
-names(Most_drawn_openings)[2] <- "Draw(%)"
+names(Most_drawn_openings)[2] <- "Draws per 100 games"
 Most_drawn_openings <- Most_drawn_openings[-1,]
 row.names(Most_drawn_openings) <- 1:10
 
@@ -98,10 +98,10 @@ prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-ggplot(data=Best_white_openings, aes(x=`Points per 100 games`,y=`Opening name`)) + geom_point() + ggtitle("The best openings for white")
-ggplot(data=Best_black_openings, aes(x=`Points per 100 games`,y=`Opening name`)) + geom_point() + ggtitle("The best openings for black")
-ggplot(data=Most_drawn_openings, aes(x=`Draw(%)`,y=`Opening name`)) + geom_point() + ggtitle("Most drawn openings")
-ggplot(data=topvelemojstri,stat=identity ,aes(x=`Active GMs`,y=Country)) + geom_bar() + ggtitle("Top GM countries")
+graf1 <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
+graf2 <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
+graf3 <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
+graf4 <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 
 
        
