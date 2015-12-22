@@ -98,9 +98,10 @@ prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-ggplot(data=Best_white_openings, aes(x=Best_white_openings$`Points per 100 games`,y=Best_white_openings$`Opening name`)) + geom_point()
-ggplot(data=Best_black_openings, aes(x=Best_black_openings$`Points per 100 games`,y=Best_black_openings$`Opening name`)) + geom_point()
-ggplot(data=Most_drawn_openings, aes(x=Most_drawn_openings$`Draw(%)`,y=Most_drawn_openings$`Opening name`)) + geom_point()
-ggplot(data=topvelemojstri, aes(x=topvelemojstri$`Active GMs`,y=topvelemojstri$Country)) + geom_point()
+ggplot(data=Best_white_openings, aes(x=`Points per 100 games`,y=`Opening name`)) + geom_point() + ggtitle("The best openings for white")
+ggplot(data=Best_black_openings, aes(x=`Points per 100 games`,y=`Opening name`)) + geom_point() + ggtitle("The best openings for black")
+ggplot(data=Most_drawn_openings, aes(x=`Draw(%)`,y=`Opening name`)) + geom_point() + ggtitle("Most drawn openings")
+ggplot(data=topvelemojstri,stat=identity ,aes(x=`Active GMs`,y=Country)) + geom_bar() + ggtitle("Top GM countries")
+
 
        
