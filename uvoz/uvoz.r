@@ -98,10 +98,9 @@ prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-graf1 <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
-graf2 <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
-graf3 <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
-graf4 <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
-
+graf_white <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
+graf_black <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
+graf_draws <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
+graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 
        
