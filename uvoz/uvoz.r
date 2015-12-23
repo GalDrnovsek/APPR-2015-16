@@ -84,6 +84,8 @@ velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:65
 velemojstri[,1] <- gsub("(Â\\s)*","",velemojstri[,1])
 velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
+velemojstri[,2] <- as.numeric(velemojstri[,2])
+velemojstri[,3] <- as.numeric(velemojstri[,3])
 topvelemojstri <- velemojstri[1:10,]
 
 link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)"
@@ -97,6 +99,13 @@ prebivalstvo <- prebivalstvo[grep("[0-9]+", prebivalstvo[,1]),]
 prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
+names(prebivalstvo)[1] <- "Country"
+prebivalstvo[,2] <- gsub("(\\,)","",prebivalstvo[,2])
+prebivalstvo[,2] <- as.numeric(prebivalstvo)
+
+GMs_per_capita <- merge(prebivalstvo,velemojstri)
+GMs_per_capita$Population <- as.numeric(GMs_per_capita$Population)
+GMs_per_capita <- mutate(GMs_per_capita, pc = (`Active GMs`/Population)*10000)
 
 graf_white <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
 graf_black <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
