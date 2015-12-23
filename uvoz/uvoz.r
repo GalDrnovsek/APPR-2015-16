@@ -91,17 +91,16 @@ stran3 <- html_session(link3) %>% read_html(encoding = "UTF-8")
 prebivalstvo <- stran3 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
 prebivalstvo <- prebivalstvo[-1,]
 names(prebivalstvo)[3] <- "Population" 
-prebivalstvo[,2] <- gsub("(Â\\s)*","",prebivalstvo[,2])
+prebivalstvo[,2] <- gsub("^[^A-Z]+","",prebivalstvo[,2])
 prebivalstvo[,2] <- gsub("(\\[){1}(\\w){1,2}(\\]){1}","",prebivalstvo[,2])
-prebivalstvo[,1] <- gsub("(\\â){1}(\\€){1}(\\”){1}",NA,prebivalstvo[,1])
+prebivalstvo <- prebivalstvo[grep("[0-9]+", prebivalstvo[,1]),]
 prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:196
 prebivalstvo$Rank <- NULL
 
-graf1 <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
-graf2 <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
-graf3 <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
-graf4 <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
-
+graf_white <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
+graf_black <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
+graf_draws <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
+graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 
        

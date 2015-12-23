@@ -2,11 +2,11 @@
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
 author: "Gal Drnovšek"
 output:
-  word_document: default
   pdf_document:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
+  word_document: default
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -94,7 +94,7 @@ Iz te tabele sem naredil še graf glede na število aktivnih velemojstrov:
 graf_GMs
 ```
 
-Popričakovanjih je država za največ aktivnimi velemojstri Rusija(158), sledita pa ji Nemčija in Ukrajina.
+Po pričakovanjih je država za največ aktivnimi velemojstri Rusija(158), sledita pa ji Nemčija in Ukrajina.
 
-```
+
 
