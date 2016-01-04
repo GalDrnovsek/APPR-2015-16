@@ -41,37 +41,32 @@ Chess_opening_statistics[,2] <- as.numeric(Chess_opening_statistics[,2])
 Chess_opening_statistics[,3] <- as.numeric(Chess_opening_statistics[,3])
 Chess_opening_statistics[,4] <- as.numeric(Chess_opening_statistics[,4])
 Chess_opening_statistics <- filter(Chess_opening_statistics,!grepl("-",`Opening name`))
-Chess_opening_statistics <- mutate(Chess_opening_statistics, "Points per 100 games" = (`White win (%)`)*1 + (`Draw (%)`)*0.5)
+Chess_opening_statistics <- Chess_opening_statistics[-30,]
+Chess_opening_statistics <- Chess_opening_statistics[-30,]
+Chess_opening_statistics <- Chess_opening_statistics[-47,]
+Chess_opening_statistics <- Chess_opening_statistics[-47,]
+Chess_opening_statistics <- Chess_opening_statistics[-49,]
+Chess_opening_statistics <- Chess_opening_statistics[-49,]
+row.names(Chess_opening_statistics) <- 1:57
 
-tabela4 <- stran1 %>% html_nodes(xpath = "//table[2]") %>% html_table()
-Best_white_openings <- data.frame(tabela4)
-Best_white_openings$X1 <- NULL
-names(Best_white_openings)[1] <- "Opening name"
-names(Best_white_openings)[2] <- "White win(%)"
-names(Best_white_openings)[3] <- "Draw(%)"
-names(Best_white_openings)[4] <- "Black win(%)"
-names(Best_white_openings)[5] <- "Points per 100 games"
-Best_white_openings <- Best_white_openings[-1,]
-row.names(Best_white_openings) <- 1:10
+for_white <- mutate(Chess_opening_statistics, "Points per 100 games" = (`White win (%)`)*1 + (`Draw (%)`)*0.5)
+for_white <- for_white[order(-for_white$`Points per 100 games`),]
+row.names(for_white) <- 1:57
+top_for_white <- for_white[1:10,]
 
-tabela5 <- stran1 %>% html_nodes(xpath = "//table[4]") %>% html_table()
-Best_black_openings <- data.frame(tabela5)
-Best_black_openings$X1 <- NULL
-names(Best_black_openings)[1] <- "Opening name"
-names(Best_black_openings)[2] <- "White win(%)"
-names(Best_black_openings)[3] <- "Draw(%)"
-names(Best_black_openings)[4] <- "Black win(%)"
-names(Best_black_openings)[5] <- "Points per 100 games"
-Best_black_openings <- Best_black_openings[-1,]
-row.names(Best_black_openings) <- 1:10
+for_black <- mutate(Chess_opening_statistics, "Points per 100 games" = (`Black win (%)`)*1 + (`Draw (%)`)*0.5)
+for_black <- for_black[order(-for_black$`Points per 100 games`),]
+row.names(for_black) <- 1:57
+top_for_black <- for_black[1:10,]
 
-tabela6 <- stran1 %>% html_nodes(xpath = "//table[6]") %>% html_table()
-Most_drawn_openings <- data.frame(tabela6)
+tabela4 <- stran1 %>% html_nodes(xpath = "//table[6]") %>% html_table()
+Most_drawn_openings <- data.frame(tabela4)
 Most_drawn_openings$X1 <- NULL
 names(Most_drawn_openings)[1] <- "Opening name"
 names(Most_drawn_openings)[2] <- "Draws per 100 games"
 Most_drawn_openings <- Most_drawn_openings[-1,]
 row.names(Most_drawn_openings) <- 1:10
+Most_drawn_openings[,2] <- as.numeric(Most_drawn_openings[,2])
 
 url2 <- "https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country"
 
@@ -116,8 +111,8 @@ GMs_per_capita <- GMs_per_capita[order(-GMs_per_capita$pc),]
 row.names(GMs_per_capita) <- 1:62
 top_countries <- GMs_per_capita[1:10,]
 
-graf_white <- ggplot(data=Best_white_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
-graf_black <- ggplot(data=Best_black_openings, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
+graf_white <- ggplot(data=top_for_white, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
+graf_black <- ggplot(data=top_for_black, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
 graf_draws <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
 graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 graf_top_coutries <- ggplot(data=top_countries, aes(x=Country,y=`pc`)) + geom_bar(stat="identity",fill="purple") + coord_flip() + ggtitle("Top GM per capita countries")
