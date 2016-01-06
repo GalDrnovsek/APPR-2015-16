@@ -40,33 +40,31 @@ row.names(Chess_opening_statistics) <- 1:290
 Chess_opening_statistics[,2] <- as.numeric(Chess_opening_statistics[,2])
 Chess_opening_statistics[,3] <- as.numeric(Chess_opening_statistics[,3])
 Chess_opening_statistics[,4] <- as.numeric(Chess_opening_statistics[,4])
-Chess_opening_statistics <- filter(Chess_opening_statistics,!grepl("-",`Opening name`))
-Chess_opening_statistics <- Chess_opening_statistics[-30,]
-Chess_opening_statistics <- Chess_opening_statistics[-30,]
-Chess_opening_statistics <- Chess_opening_statistics[-47,]
-Chess_opening_statistics <- Chess_opening_statistics[-47,]
-Chess_opening_statistics <- Chess_opening_statistics[-49,]
-Chess_opening_statistics <- Chess_opening_statistics[-49,]
-row.names(Chess_opening_statistics) <- 1:57
+Chess_opening_statistics <- filter(Chess_opening_statistics,!grepl("^-",`Opening name`))
+Chess_opening_statistics <- Chess_opening_statistics[-33,]
+Chess_opening_statistics <- Chess_opening_statistics[-33,]
+Chess_opening_statistics <- Chess_opening_statistics[-50,]
+Chess_opening_statistics <- Chess_opening_statistics[-50,]
+Chess_opening_statistics <- Chess_opening_statistics[-52,]
+Chess_opening_statistics <- Chess_opening_statistics[-52,]
+row.names(Chess_opening_statistics) <- 1:60
 
 for_white <- mutate(Chess_opening_statistics, "Points per 100 games" = (`White win (%)`)*1 + (`Draw (%)`)*0.5)
 for_white <- for_white[order(-for_white$`Points per 100 games`),]
-row.names(for_white) <- 1:57
+row.names(for_white) <- 1:60
+for_white <- for_white[,c(1,5)]
 top_for_white <- for_white[1:10,]
 
 for_black <- mutate(Chess_opening_statistics, "Points per 100 games" = (`Black win (%)`)*1 + (`Draw (%)`)*0.5)
 for_black <- for_black[order(-for_black$`Points per 100 games`),]
-row.names(for_black) <- 1:57
+row.names(for_black) <- 1:60
+for_black <- for_black[,c(1,5)]
 top_for_black <- for_black[1:10,]
 
-tabela4 <- stran1 %>% html_nodes(xpath = "//table[6]") %>% html_table()
-Most_drawn_openings <- data.frame(tabela4)
-Most_drawn_openings$X1 <- NULL
-names(Most_drawn_openings)[1] <- "Opening name"
-names(Most_drawn_openings)[2] <- "Draws per 100 games"
-Most_drawn_openings <- Most_drawn_openings[-1,]
-row.names(Most_drawn_openings) <- 1:10
-Most_drawn_openings[,2] <- as.numeric(Most_drawn_openings[,2])
+drawing_percentage <- Chess_opening_statistics[,c(1,4)]
+drawing_percentage <- drawing_percentage[order(-drawing_percentage$`Draw (%)`),]
+row.names(drawing_percentage) <- 1:60
+most_draws <- drawing_percentage[1:10,]
 
 url2 <- "https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country"
 
@@ -104,17 +102,21 @@ names(prebivalstvo)[1] <- "Country"
 prebivalstvo[,2] <- gsub("(\\,)","",prebivalstvo[,2])
 prebivalstvo[,2] <- as.numeric(prebivalstvo[,2])
 
-GMs_per_capita <- merge(prebivalstvo,velemojstri)
-GMs_per_capita$Population <- as.numeric(GMs_per_capita$Population)
-GMs_per_capita <- mutate(GMs_per_capita, pc = (`Active GMs`/Population)*1000000)
+GMs_and_population <- merge(prebivalstvo,velemojstri)
+GMs_and_population <- GMs_and_population[order(-GMs_and_population$`Active GMs`),]
+row.names(GMs_and_population) <- 1:62
+
+GMs_per_capita <- mutate(GMs_and_population, pc = (`Active GMs`/Population)*1000000)
 GMs_per_capita <- GMs_per_capita[order(-GMs_per_capita$pc),]
 row.names(GMs_per_capita) <- 1:62
+GMs_per_capita <- GMs_per_capita[,c(1,4)]
+names(GMs_per_capita)[2] <- "GMs per million"
 top_countries <- GMs_per_capita[1:10,]
 
 graf_white <- ggplot(data=top_for_white, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
 graf_black <- ggplot(data=top_for_black, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
-graf_draws <- ggplot(data=Most_drawn_openings, aes(x=`Opening name`,y=`Draws per 100 games`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
+graf_draws <- ggplot(data=most_draws, aes(x=`Opening name`,y=`Draw (%)`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
 graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
-graf_top_coutries <- ggplot(data=top_countries, aes(x=Country,y=`pc`)) + geom_bar(stat="identity",fill="purple") + coord_flip() + ggtitle("Top GM per capita countries")
+graf_top_coutries <- ggplot(data=top_countries, aes(x=Country,y=`GMs per million`)) + geom_bar(stat="identity",fill="purple") + coord_flip() + ggtitle("Top GM per capita countries")
 
        
