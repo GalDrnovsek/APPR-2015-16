@@ -19,7 +19,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 ```
 
 # Izbira teme
-Odločil sem se, da bom analiziral statistiko šahovskih otvoritev, ki so bile odigrane v več kot 2 milijonih šahovskih partij. Cilj je izvedeti, katere otvoritve so statistično najboljše za igralce z belimi in igralce s črnimi figurami ter v katerih otvoritvah je največji delež remijev. Dodatno me zanima še, katere države imajo največ velemojstrov. Podatke sem pridobil na:
+Odločil sem se, da bom analiziral statistiko šahovskih otvoritev, ki so bile odigrane v več kot 2 milijonih šahovskih partij. Cilj je izvedeti, katere otvoritve so statistično najboljše za igralce z belimi in igralce s črnimi figurami ter v katerih otvoritvah je največji delež remijev. Dodatno me zanima še, katere države imajo največ velemojstrov in največ velemojstrov per capita. Podatke sem pridobil na:
 
 * http://www.becomeawordgameexpert.com/stats.htm
 
@@ -27,74 +27,68 @@ Odločil sem se, da bom analiziral statistiko šahovskih otvoritev, ki so bile o
 
 * https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)
 
-V kasnejših fazah bom narisal zemljevid, ki bo prikazoval, katere države imajo največ velemojstrov per capita.
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE,results='hide', message=FALSE}
+```{r uvoz, echo=FALSE, results='hide', message=FALSE}
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
 ## HTML podatki
 
-Iz prve spletne strani sem uvozil nekaj tabel, iz katerih sem dobil podatke o deležih belih zmag, črnih zmag in remijev za posamezne otvoritve.
-Spodnja tabele predstavlja statistiko vseh šahovskih otvoritev in podotvoritev. Ker ima 290 vrstic, vzemimo le začetek:
+Iz prve spletne strani sem uvozil tabelo, iz katere sem dobil podatke o deležih belih zmag, črnih zmag in remijev za posamezne otvoritve. Odstranil sem vrstice s podotvoritvami glavnih otvoritev, ker so vsi podatki zajei že v glavnih otvoritvah. Odstranil sem še stolpec, v katerem so bile napisane začetne poteze posamezne otvoritve. Tip stolpcev, ki vsebujejo le številke, sem spremenil iz character v double in nastala je tabela Chess_opening_statistics s 4 stolpci:
 
-```{r,echo=FALSE,message=FALSE}
-kable(head(Chess_opening_statistics))
-```
+- ime otvoritve(tip character)
+- delež zmag igralcev z belimi figurami(tip double)
+- delež zmag igralcev s črnimi figurami(tip double)
+- delež remijev(tip double)
 
-Ta tabela ima 4 stolpce: ime otvoritve, delež zmag igralcev z belimi figurami, delež remijev in delež zmag igralcev s črnimi figurami.
+Nato sem tej tabeli dodal stolpec, ki pove, koliko točk od 100 partij so dosegli beli v povprečju. Iz te tabele sem vzel 10 top otvoritev za bele in dobil tabelo top_for_white z 2 stolpcema:
 
-Oglejmo si tabelo, ki predstavlja otvoritve z največjimi deleži zmag igralcev z belimi figurami. 
+- ime otvoritve(tip character)
+- število točk od 100 partij(tip double)
 
-```{r,echo=FALSE,message=FALSE}
-kable(Best_white_openings)
-```
+Po enakem postopku sem naredil še tabelo top_for_black.
 
-Ta tabela ima enake stolpce kot zgornja, le da je dodan še stolpec, ki predstavlja povprečno število točk od 100 za igralce z belimi figurami za posamezno otvoritev. V tej tabeli je le 10 tistih otvoritev, ki kažejo na najboljše rezultate za igralce z belimi figurami glede na doseženo število točk. 
-Graf za to tabelo sem naredil v odvisnosti od njenega zadnjega stolpca:
+Za otvoritve z največjim deležem remijev sem vzel 2 stolpca iz tabele Chess_opening_statistics. Top 10 takih otvoritev sem združil v tabeli most_draws, ki ima 2 stolpca:
+
+- ime otvoritve(tip character)
+- delež remijev(tip double)
+
+Iz druge in tretje spletne strani sem uvozil tabeli s številom prebivalcev po državah oziroma številom velemojstrov po državah. V tabeli z velemojstri sem zbrisal nekaj vrstic in stolpcev ter odvečnih znakov in spremenil tip stolpca s številom velemojstrov v double. Podobno sem naredil še za tabelo s populacijo. Nato sem ti tabeli združil v tabelo GMs_and_population, ki ima 3 stolpce:
+
+- ime države(tip character)
+- število prebivalcev(tip double)
+- število velemojstrov(tip double)
+
+Tej tabeli sem dodal stolpec, ki pove, koliko velemojstrov ima posamezna država na milijon prebivalcev. Iz nje sem naredil novo tabelo z 2 stolpcema. Iz te tabele sem vzel 10 najboljših držav po velemojstrih na prebivalca in naredil tabelo top_countries s stolpcema:
+
+- ime države(tip character)
+- število velemojstrov na milijon prebivalcev(tip double)
+
+Naredil sem še nekaj grafov iz zgornjih tabel:
 
 ```{r,echo=FALSE,message=FALSE}
 graf_white
 ```
 
-Vidi se, da je po tem kriteriju najboljša otvoritev za belega Damin gambit, ki v povprečju doseže 58 točk od 100.
-
-Enake stolpce ima tudi tabela, v kateri je 10 najboljših otvoritev za igralce s črnimi figurami.
-Graf za to tabelo izgleda takole:
-
 ```{r,echo=FALSE,message=FALSE}
 graf_black
 ```
-
-Opazimo, da najboljše rezultate igralcem s črnimi figurami prinašata Sicilijanska obramba in Nimzo-Indijka, vendar v vsaki od teh otvoritev igralci s črnimi figurami v povprečju dosežejo le 48,5 točk od 100, kar je manj kot 50%.
-
-V tabeli za 10 tistih partij, ki se največkrat končajo z remijem, sta 2 stolpca: ime otvoritve in povprečno število remijev na 100 odigranih partij.
-Graf za partije z največ remiji:
 
 ```{r,echo=FALSE,message=FALSE}
 graf_draws
 ```
 
-Otvoritvi z največjim deležem remijev sta Damina indijska obramba in Bogo-indijska obramba, pri katerih je povprečno število remijev na 100 partij enako 42.
-
-Iz druge spletne strani sem uvozil tabelo, v kateri so vse države, v katerih so vsaj 3 trenutno aktivni velemojstri. Stolpci te tabele so ime države, število trenutno aktivnih velemojstrov in število vseh velemojstrov. 
-Iz te tabele sem naredil novo tabelo, ki zajema 10 držav, ki imajo največje število velemojstrov:
-
-```{r,echo=FALSE,message=FALSE}
-kable(topvelemojstri)
-```
-
-Iz te tabele sem naredil še graf glede na število aktivnih velemojstrov:
-
 ```{r,echo=FALSE,message=FALSE}
 graf_GMs
 ```
 
-Po pričakovanjih je država za največ aktivnimi velemojstri Rusija(158), sledita pa ji Nemčija in Ukrajina.
+```{r,echo=FALSE,message=FALSE}
+graf_top_coutries
+```
 
 
 
