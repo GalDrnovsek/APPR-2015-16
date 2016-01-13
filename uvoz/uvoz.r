@@ -85,6 +85,7 @@ velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
 velemojstri[,2] <- as.numeric(velemojstri[,2])
 velemojstri[,3] <- as.numeric(velemojstri[,3])
 velemojstri$`Overall GMs` <- NULL
+velemojstri[37,1] <- "Bosnia and Herzegovina"
 topvelemojstri <- velemojstri[1:10,]
 
 link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)"
@@ -103,7 +104,7 @@ prebivalstvo[,2] <- gsub("(\\,)","",prebivalstvo[,2])
 prebivalstvo[,2] <- as.numeric(prebivalstvo[,2])
 
 link4 <- "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)_per_capita"
-stran4 <-html_session(link4) %>% read_html(encoding = "UTF-8")
+stran4 <- html_session(link4) %>% read_html(encoding = "UTF-8")
 GDP_per_capita <- stran4 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
 GDP_per_capita <- GDP_per_capita[4:192,1:3]
 GDP_per_capita <- GDP_per_capita[grep("[0-9]+", GDP_per_capita[,1]),]
@@ -116,24 +117,40 @@ GDP_per_capita[,2] <- as.numeric(GDP_per_capita[,2])
 names(GDP_per_capita)[1] <- "Country"
 names(GDP_per_capita)[2] <- "GDP pc"
 
+link5 <- "https://www.cia.gov/library/publications/the-world-factbook/rankorder/2206rank.html"
+stran5 <- html_session(link5) %>% read_html(encoding = "UTF-8")
+tabela5 <- stran5 %>% html_nodes(xpath = "//table[1]") %>% html_table
+education_exp <- data.frame(tabela5)
+education_exp$Rank <- NULL
+education_exp$Date.of.Information <- NULL
+names(education_exp)[2] <- "% of GDP"
+
 GMs_and_population <- merge(prebivalstvo,velemojstri)
 GMs_and_population <- GMs_and_population[order(-GMs_and_population$`Active GMs`),]
-row.names(GMs_and_population) <- 1:62
+row.names(GMs_and_population) <- 1:63
 
-vse_skupaj1 <- merge(GMs_and_population,GDP_per_capita)
-vse_skupaj1 <- vse_skupaj[order(-vse_skupaj1$`Active GMs`),]
-row.names(vse_skupaj1) <- 1:60
+GMS_and_population_and_GDP <- merge(GMs_and_population,GDP_per_capita)
+GMS_and_population_and_GDP <- GMS_and_population_and_GDP[order(-GMS_and_population_and_GDP$`Active GMs`),]
+row.names(GMS_and_population_and_GDP) <- 1:61
 
 GMs_per_capita <- mutate(GMs_and_population, pc = (`Active GMs`/Population)*1000000)
 GMs_per_capita <- GMs_per_capita[order(-GMs_per_capita$pc),]
-row.names(GMs_per_capita) <- 1:62
+row.names(GMs_per_capita) <- 1:63
 GMs_per_capita <- GMs_per_capita[,c(1,4)]
 names(GMs_per_capita)[2] <- "GMs per million"
 top_countries <- GMs_per_capita[1:10,]
 
-vse_skupaj2 <- merge(GMs_per_capita, GDP_per_capita)
-vse_skupaj2 <- vse_skupaj2[order(-vse_skupaj2$`GMs per million`),]
-row.names(vse_skupaj2) <- 1:60
+GMs_per_capita_and_GDP <- merge(GMs_per_capita, GDP_per_capita)
+GMs_per_capita_and_GDP <- GMs_per_capita_and_GDP[order(-GMs_per_capita_and_GDP$`GMs per million`),]
+row.names(GMs_per_capita_and_GDP) <- 1:61
+
+vse_skupaj1 <- merge(GMs_per_capita_and_GDP,education_exp)
+vse_skupaj1 <- vse_skupaj1[order(-vse_skupaj1$`GMs per million`),]
+row.names(vse_skupaj1) <- 1:55
+
+vse_skupaj2 <- merge(GMS_and_population_and_GDP,education_exp)
+vse_skupaj2 <- vse_skupaj2[order(-vse_skupaj2$`Active GMs`),]
+row.names(vse_skupaj2) <- 1:55
 
 graf_white <- ggplot(data=top_for_white, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="white",colour="black") + coord_flip() + ggtitle("The best openings for white")
 graf_black <- ggplot(data=top_for_black, aes(x=`Opening name`,y=`Points per 100 games`)) + geom_bar(stat="identity",fill="black") + coord_flip() + ggtitle("The best openings for black")
