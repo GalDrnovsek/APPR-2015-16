@@ -10,6 +10,7 @@ Podatke bom pridobil na:
 * http://www.becomeawordgameexpert.com/stats.htm 
 * https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations) 
 * https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country
+* https://www.cia.gov/library/publications/the-world-factbook/rankorder/2206rank.html
 
 in morda še kje drugje.
 
