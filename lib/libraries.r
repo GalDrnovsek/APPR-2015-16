@@ -1,8 +1,11 @@
 library(knitr)
-require(dplyr)
-require(rvest)
-require(gsubfn)
-require(ggplot2)
+library(dplyr)
+library(rvest)
+library(gsubfn)
+library(ggplot2)
+library(sp)
+library(maptools)
+library(digest)
 
 # Uvozimo funkcije za delo z datotekami XML.
 source("lib/xml.r", encoding = "UTF-8")
