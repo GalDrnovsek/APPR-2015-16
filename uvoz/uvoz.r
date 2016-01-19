@@ -80,6 +80,7 @@ names(velemojstri)[2] <- "Active GMs"
 names(velemojstri)[3] <- "Overall GMs"
 velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:65
+velemojstri[,1] <- velemojstri[,1] %>% strapplyc("\\s*([[:alpha:]\\s&.,'-]+)") %>% unlist()
 velemojstri[,1] <- gsub("(Â\\s)*","",velemojstri[,1])
 velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
 velemojstri[,2] <- as.numeric(velemojstri[,2])
