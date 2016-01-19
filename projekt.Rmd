@@ -27,6 +27,7 @@ Odločil sem se, da bom analiziral statistiko šahovskih otvoritev, ki so bile o
 
 * https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)
 
+* https://www.cia.gov/library/publications/the-world-factbook/rankorder/2206rank.html
 
 ***
 
@@ -89,6 +90,16 @@ graf_GMs
 ```{r,echo=FALSE,message=FALSE}
 graf_top_coutries
 ```
+
+Nato sem uvozil še tabeli, ki prikazujeta BDP na prebivalca oziroma izdatke za izobraževanje za posamezne države.
+Ko sem ju prečistil, sem ju združil z nekaterimi prejšnjimi tabelami. Glavna končna tabelaje vse_skupaj2 s 5 stolpci:
+
+- ime države(tip character)
+- število prebivalcev(tip double)
+- število velemojstrov(tip double)
+- BDP na prebivalca(tip double)
+- delež BDP namenjen za izdatke za izobraževanje(tip double)
+
 
 
 
