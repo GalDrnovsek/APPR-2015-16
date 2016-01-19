@@ -100,6 +100,23 @@ Ko sem ju prečistil, sem ju združil z nekaterimi prejšnjimi tabelami. Glavna 
 - BDP na prebivalca(tip double)
 - delež BDP namenjen za izdatke za izobraževanje(tip double)
 
+# Vizualizacija podatkov
 
+```{r vizualizacija, echo=FALSE, message=FALSE}
+source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
+```
+
+Zaenkrat sem narisal 2 zemljevida.
+Prvi prikazuje število velemojstrov na milijon prebivalcev za posamezno državo,
+
+```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE}
+print(zemljevid1)
+```
+
+drugi pa število velemojstrov za posamezno državo:
+
+```{r zemljevid2, echo=FALSE, message=FALSE, warning=FALSE}
+print(zemljevid2)
+```
 
 
