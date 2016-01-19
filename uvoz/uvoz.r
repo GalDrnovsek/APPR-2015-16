@@ -158,4 +158,5 @@ graf_draws <- ggplot(data=most_draws, aes(x=`Opening name`,y=`Draw (%)`)) + geom
 graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 graf_top_coutries <- ggplot(data=top_countries, aes(x=Country,y=`GMs per million`)) + geom_bar(stat="identity",fill="purple") + coord_flip() + ggtitle("Top GM per capita countries")
 
+
        
