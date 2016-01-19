@@ -28,11 +28,19 @@ svet <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthd
                         "ne_110m_admin_0_countries")
 
 svet<-pretvori.zemljevid(svet)
-names(GMs_per_capita) <- c("name","permil")
-sv2 <- as.data.frame(svet)
-sv3= merge(sv2,GMs_per_capita,all.x=TRUE)
-View(sv3)
-sv4 = sv3[order(sv3[,1],sv3[,4]),]
+svet <- as.data.frame(svet)
+names(GMs_per_capita)[1] <- "name"
+svet1 <- merge(svet, GMs_per_capita, all.x=TRUE)
+svet1 <- svet1[order(svet1[,1], svet1[,4]),]
 
-zemljevid <- ggplot() + geom_polygon(data = sv4, aes(x=long, y=lat, group = group,fill=permil))
-zemljevid
+zemljevid1 <- ggplot() + geom_polygon(data = svet1, aes(x=long, y=lat, group = group, fill=`GMs per million`), color="grey") +
+  scale_fill_continuous(low = "#5DA2DF", high = "#EB1E1E") + xlab("") + ylab("")
+zemljevid1
+
+names(velemojstri)[1] <- "name"
+svet2 <- merge(svet, velemojstri, all.x=TRUE)
+svet2 <- svet2[order(svet2[,1], svet2[,4]),]
+zemljevid2 <- ggplot() + geom_polygon(data = svet2, aes(x=long, y=lat, group = group, fill=`Active GMs`), color="grey") +
+  scale_fill_continuous(low = "#52EADB", high = "#0C3A35") + xlab("") + ylab("")
+zemljevid2
+
