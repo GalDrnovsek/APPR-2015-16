@@ -27,4 +27,12 @@ pretvori.zemljevid <- function(zemljevid) {
 svet <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip",
                         "ne_110m_admin_0_countries")
 
-zemljevid <- ggplot() + geom_polygon(data = svet, aes(x=long, y=lat, group = group))
+svet<-pretvori.zemljevid(svet)
+names(GMs_per_capita) <- c("name","permil")
+sv2 <- as.data.frame(svet)
+sv3= merge(sv2,GMs_per_capita,all.x=TRUE)
+View(sv3)
+sv4 = sv3[order(sv3[,1],sv3[,4]),]
+
+zemljevid <- ggplot() + geom_polygon(data = sv4, aes(x=long, y=lat, group = group,fill=permil))
+zemljevid
