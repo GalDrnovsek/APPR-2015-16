@@ -34,7 +34,7 @@ svet1 <- merge(svet, GMs_per_capita, all.x=TRUE)
 svet1 <- svet1[order(svet1[,1], svet1[,4]),]
 
 zemljevid1 <- ggplot() + geom_polygon(data = svet1, aes(x=long, y=lat, group = group, fill=`GMs per million`), color="grey") +
-  scale_fill_continuous(low = "#5DA2DF", high = "#EB1E1E") + xlab("") + ylab("")
+  scale_fill_continuous(low = "#3742A8", high = "#ED1310") + xlab("") + ylab("")
 zemljevid1
 
 names(velemojstri)[1] <- "name"
