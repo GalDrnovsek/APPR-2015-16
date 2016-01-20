@@ -80,8 +80,7 @@ names(velemojstri)[2] <- "Active GMs"
 names(velemojstri)[3] <- "Overall GMs"
 velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:65
-velemojstri[,1] <- velemojstri[,1] %>% strapplyc("\\s*([[:alpha:]\\s&.,'-]+)") %>% unlist()
-velemojstri[,1] <- gsub("(Â\\s)*","",velemojstri[,1])
+velemojstri[,1] <- velemojstri[,1] %>% strapplyc("\\s+([[:alpha:]\\s&.,'-]+)") %>% unlist()
 velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
 velemojstri[,2] <- as.numeric(velemojstri[,2])
 velemojstri[,3] <- as.numeric(velemojstri[,3])
@@ -107,12 +106,14 @@ prebivalstvo[,2] <- as.numeric(prebivalstvo[,2])
 link4 <- "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)_per_capita"
 stran4 <- html_session(link4) %>% read_html(encoding = "UTF-8")
 GDP_per_capita <- stran4 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
+Encoding(GDP_per_capita$X2) <- "UTF-8"
 GDP_per_capita <- GDP_per_capita[4:192,1:3]
 GDP_per_capita <- GDP_per_capita[grep("[0-9]+", GDP_per_capita[,1]),]
 GDP_per_capita$X1 <- NULL
-GDP_per_capita[,1] <- gsub("(Â\\s)*","",GDP_per_capita[,1])
-GDP_per_capita[,1] <- gsub("(\\[){1}(\\w){1}(\\]){1}(\\[){1}(\\w){1}(\\]){1}","",GDP_per_capita[,1])
 row.names(GDP_per_capita) <- 1:187
+GDP_per_capita[,1] <- GDP_per_capita[,1] %>% strapplyc("\\s+([[:alpha:]\\s&.,'-]+)") %>% unlist()
+#GDP_per_capita[,1] <- gsub("(Â\\s)*","",GDP_per_capita[,1])
+GDP_per_capita[,1] <- gsub("(\\[){1}(\\w){1}(\\]){1}(\\[){1}(\\w){1}(\\]){1}","",GDP_per_capita[,1])
 GDP_per_capita[,2] <- gsub("(\\,)","",GDP_per_capita[,2])
 GDP_per_capita[,2] <- as.numeric(GDP_per_capita[,2])
 names(GDP_per_capita)[1] <- "Country"
@@ -125,25 +126,29 @@ education_exp <- data.frame(tabela5)
 education_exp$Rank <- NULL
 education_exp$Date.of.Information <- NULL
 names(education_exp)[2] <- "% of GDP"
+education_exp[174,1] <- "China"
+education_exp[174,2] <- 4.2
+education_exp <- education_exp[order(-education_exp$`% of GDP`),]
+row.names(education_exp) <- 1:174
 
 GMs_and_population <- merge(prebivalstvo,velemojstri)
 GMs_and_population <- GMs_and_population[order(-GMs_and_population$`Active GMs`),]
-row.names(GMs_and_population) <- 1:63
+row.names(GMs_and_population) <- 1:62
 
 GMS_and_population_and_GDP <- merge(GMs_and_population,GDP_per_capita)
 GMS_and_population_and_GDP <- GMS_and_population_and_GDP[order(-GMS_and_population_and_GDP$`Active GMs`),]
-row.names(GMS_and_population_and_GDP) <- 1:61
+row.names(GMS_and_population_and_GDP) <- 1:60
 
 GMs_per_capita <- mutate(GMs_and_population, pc = (`Active GMs`/Population)*1000000)
 GMs_per_capita <- GMs_per_capita[order(-GMs_per_capita$pc),]
-row.names(GMs_per_capita) <- 1:63
+row.names(GMs_per_capita) <- 1:62
 GMs_per_capita <- GMs_per_capita[,c(1,4)]
 names(GMs_per_capita)[2] <- "GMs per million"
 top_countries <- GMs_per_capita[1:10,]
 
 GMs_per_capita_and_GDP <- merge(GMs_per_capita, GDP_per_capita)
 GMs_per_capita_and_GDP <- GMs_per_capita_and_GDP[order(-GMs_per_capita_and_GDP$`GMs per million`),]
-row.names(GMs_per_capita_and_GDP) <- 1:61
+row.names(GMs_per_capita_and_GDP) <- 1:60
 
 vse_skupaj1 <- merge(GMs_per_capita_and_GDP,education_exp)
 vse_skupaj1 <- vse_skupaj1[order(-vse_skupaj1$`GMs per million`),]
@@ -158,6 +163,5 @@ graf_black <- ggplot(data=top_for_black, aes(x=`Opening name`,y=`Points per 100 
 graf_draws <- ggplot(data=most_draws, aes(x=`Opening name`,y=`Draw (%)`)) + geom_bar(stat="identity",fill="blue") + coord_flip() + ggtitle("Most drawn openings")
 graf_GMs <- ggplot(data=topvelemojstri, aes(x=Country,y=`Active GMs`)) + geom_bar(stat="identity",fill="darkgreen") + coord_flip() + ggtitle("Top GM countries")
 graf_top_coutries <- ggplot(data=top_countries, aes(x=Country,y=`GMs per million`)) + geom_bar(stat="identity",fill="purple") + coord_flip() + ggtitle("Top GM per capita countries")
-
 
        
