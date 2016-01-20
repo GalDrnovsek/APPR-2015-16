@@ -44,3 +44,9 @@ zemljevid2 <- ggplot() + geom_polygon(data = svet2, aes(x=long, y=lat, group = g
   scale_fill_continuous(low = "#52EADB", high = "#0C3A35") + xlab("") + ylab("")
 zemljevid2
 
+names(education_exp)[1] <- "name"
+svet3 <- merge(svet, education_exp, all.x=TRUE)
+svet3 <- svet3[order(svet3[,1], svet3[,4]),]
+zemljevid3 <- ggplot() + geom_polygon(data = svet3, aes(x=long, y=lat, group = group, fill=`% of GDP`), color="grey") +
+  scale_fill_continuous(low = "#86D9CF", high = "#3A14F6") + xlab("") + ylab("")
+zemljevid3
