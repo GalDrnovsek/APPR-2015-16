@@ -41,33 +41,33 @@ source("uvoz/uvoz.r", encoding = "UTF-8")
 
 Iz prve spletne strani sem uvozil tabelo, iz katere sem dobil podatke o deležih belih zmag, črnih zmag in remijev za posamezne otvoritve. Odstranil sem vrstice s podotvoritvami glavnih otvoritev, ker so vsi podatki zajei že v glavnih otvoritvah. Odstranil sem še stolpec, v katerem so bile napisane začetne poteze posamezne otvoritve. Tip stolpcev, ki vsebujejo le številke, sem spremenil iz character v double in nastala je tabela Chess_opening_statistics s 4 stolpci:
 
-- ime otvoritve(tip character)
-- delež zmag igralcev z belimi figurami(tip double)
-- delež zmag igralcev s črnimi figurami(tip double)
-- delež remijev(tip double)
+- ime otvoritve
+- delež zmag igralcev z belimi figurami
+- delež zmag igralcev s črnimi figurami
+- delež remijev
 
 Nato sem tej tabeli dodal stolpec, ki pove, koliko točk od 100 partij so dosegli beli v povprečju. Iz te tabele sem vzel 10 top otvoritev za bele in dobil tabelo top_for_white z 2 stolpcema:
 
-- ime otvoritve(tip character)
-- število točk od 100 partij(tip double)
+- ime otvoritve
+- število točk od 100 partij
 
 Po enakem postopku sem naredil še tabelo top_for_black.
 
 Za otvoritve z največjim deležem remijev sem vzel 2 stolpca iz tabele Chess_opening_statistics. Top 10 takih otvoritev sem združil v tabeli most_draws, ki ima 2 stolpca:
 
-- ime otvoritve(tip character)
-- delež remijev(tip double)
+- ime otvoritve
+- delež remijev
 
 Iz druge in tretje spletne strani sem uvozil tabeli s številom prebivalcev po državah oziroma številom velemojstrov po državah. V tabeli z velemojstri sem zbrisal nekaj vrstic in stolpcev ter odvečnih znakov in spremenil tip stolpca s številom velemojstrov v double. Podobno sem naredil še za tabelo s populacijo. Nato sem ti tabeli združil v tabelo GMs_and_population, ki ima 3 stolpce:
 
-- ime države(tip character)
-- število prebivalcev(tip double)
-- število velemojstrov(tip double)
+- ime države
+- število prebivalcev
+- število velemojstrov
 
 Tej tabeli sem dodal stolpec, ki pove, koliko velemojstrov ima posamezna država na milijon prebivalcev. Iz nje sem naredil novo tabelo z 2 stolpcema. Iz te tabele sem vzel 10 najboljših držav po velemojstrih na prebivalca in naredil tabelo top_countries s stolpcema:
 
-- ime države(tip character)
-- število velemojstrov na milijon prebivalcev(tip double)
+- ime države
+- število velemojstrov na milijon prebivalcev
 
 Naredil sem še nekaj grafov iz zgornjih tabel:
 
@@ -83,22 +83,16 @@ graf_black
 graf_draws
 ```
 
-```{r,echo=FALSE,message=FALSE}
-graf_GMs
-```
-
-```{r,echo=FALSE,message=FALSE}
-graf_top_coutries
-```
-
 Nato sem uvozil še tabeli, ki prikazujeta BDP na prebivalca oziroma izdatke za izobraževanje za posamezne države.
 Ko sem ju prečistil, sem ju združil z nekaterimi prejšnjimi tabelami. Glavna končna tabelaje vse_skupaj2 s 5 stolpci:
 
-- ime države(tip character)
-- število prebivalcev(tip double)
-- število velemojstrov(tip double)
-- BDP na prebivalca(tip double)
-- delež BDP namenjen za izdatke za izobraževanje(tip double)
+- ime države
+- število prebivalcev
+- število velemojstrov
+- BDP na prebivalca
+- delež BDP namenjen za izdatke za izobraževanje
+
+\pagebreak
 
 # Vizualizacija podatkov
 
@@ -106,17 +100,27 @@ Ko sem ju prečistil, sem ju združil z nekaterimi prejšnjimi tabelami. Glavna 
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Zaenkrat sem narisal 2 zemljevida.
+Narisal sem še 3 zemljevide.
 Prvi prikazuje število velemojstrov na milijon prebivalcev za posamezno državo,
 
 ```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE}
 print(zemljevid1)
 ```
 
-drugi pa število velemojstrov za posamezno državo:
+\pagebreak
+drugi število velemojstrov za posamezno državo,
 
 ```{r zemljevid2, echo=FALSE, message=FALSE, warning=FALSE}
 print(zemljevid2)
 ```
+
+\pagebreak
+tretji pa delež BDP namenjenega izdatkom za izobraževanje za posamezno državo:
+
+```{r zemljevid3, echo=FALSE, message=FALSE, warning=FALSE}
+print(zemljevid3)
+```
+
+
 
 
