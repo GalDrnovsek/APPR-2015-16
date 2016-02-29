@@ -6,6 +6,7 @@ library(mgcv)
 library(maptools)
 
 #prvi del
+
 a <- ggplot(vse_skupaj1, aes(x=`GDP pc`, y=`GMs per million`)) + geom_point()
 print(a)
 
@@ -29,6 +30,7 @@ premica1 <- a + geom_smooth(method = "gam", formula = y ~ s(x))
 premica1
 
 #drugi del
+
 c <- ggplot(vse_skupaj1, aes(x=`% of GDP`, y=`GMs per million`)) + geom_point()
 print(c)
 
@@ -52,6 +54,7 @@ krivulja1
 c + geom_smooth(method = "gam", formula = y ~ s(x))
 
 #tretji del
+
 e <- ggplot(vse_skupaj2, aes(x=`GDP pc`, y=`Active GMs`)) + geom_point()
 print(e)
 
@@ -75,6 +78,7 @@ premica2 <- e + geom_smooth(method = "gam", formula = y ~ s(x))
 premica2
 
 #četrti del
+
 i <- ggplot(vse_skupaj2, aes(x=`% of GDP`, y=`Active GMs`)) + geom_point()
 print(i)
 
@@ -96,3 +100,13 @@ krivulja2 <- i + geom_smooth(method = "loess")
 krivulja2
 
 i + geom_smooth(method = "gam", formula = y ~ s(x))
+
+#peti del
+
+m <- ggplot(vse_skupaj1, aes(x=`% of GDP`, y=`GDP pc`)) + geom_point(size=vse_skupaj1$`GMs per million`)
+print(m)
+
+m + geom_smooth(method = "lm")
+
+kvadratna1 <- m + geom_smooth(method = "lm", formula = y ~ x + I(x^2))
+kvadratna1
