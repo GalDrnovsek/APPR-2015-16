@@ -8,7 +8,6 @@ library(maptools)
 #prvi del
 
 a <- ggplot(vse_skupaj1, aes(x=`GDP pc`, y=`GMs per million`)) + geom_point()
-print(a)
 
 a + geom_smooth(method = "lm")
 
@@ -32,7 +31,6 @@ premica1
 #drugi del
 
 c <- ggplot(vse_skupaj1, aes(x=`% of GDP`, y=`GMs per million`)) + geom_point()
-print(c)
 
 c + geom_smooth(method = "lm")
 
@@ -56,7 +54,6 @@ c + geom_smooth(method = "gam", formula = y ~ s(x))
 #tretji del
 
 e <- ggplot(vse_skupaj2, aes(x=`GDP pc`, y=`Active GMs`)) + geom_point()
-print(e)
 
 e + geom_smooth(method = "lm")
 
@@ -80,7 +77,6 @@ premica2
 #četrti del
 
 i <- ggplot(vse_skupaj2, aes(x=`% of GDP`, y=`Active GMs`)) + geom_point()
-print(i)
 
 i + geom_smooth(method = "lm")
 
@@ -104,9 +100,9 @@ i + geom_smooth(method = "gam", formula = y ~ s(x))
 #peti del
 
 m <- ggplot(vse_skupaj1, aes(x=`% of GDP`, y=`GDP pc`)) + geom_point(size=vse_skupaj1$`GMs per million`)
-print(m)
 
 m + geom_smooth(method = "lm")
 
 kvadratna1 <- m + geom_smooth(method = "lm", formula = y ~ x + I(x^2))
 kvadratna1
+
