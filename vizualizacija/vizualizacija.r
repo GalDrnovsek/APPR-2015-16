@@ -50,3 +50,5 @@ svet3 <- svet3[order(svet3[,1], svet3[,4]),]
 zemljevid3 <- ggplot() + geom_polygon(data = svet3, aes(x=long, y=lat, group = group, fill=`% of GDP`), color="grey") +
   scale_fill_continuous(low = "#86D9CF", high = "#3A14F6") + xlab("") + ylab("")
 zemljevid3
+
+
