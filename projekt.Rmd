@@ -124,6 +124,10 @@ print(zemljevid3)
 
 # Analiza podatkov
 
+```{r analiza, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+source("analiza/analiza.r", encoding = "UTF-8")
+```
+
 V tem delu sem primerjal korelacije med deleži državnih izdatkov za šolstvo in BDP-jem na prebivalca na eni strani ter številom velemojstrov in številom velemojstrov na prebivalca na drugi strani.
 
 ```{r premica1, echo=FALSE, message=FALSE, warning=FALSE}
@@ -149,6 +153,12 @@ print(krivulja2)
 ```
 
 Do neke točke se število velemojstrov v odvisnosti od deleža GDP namenjenega za izobraževanje povečuje, potem pa začne počasi, a konstantno padati.
+
+```{r kvadratna1, echo=FALSE, message=FALSE, warning=FALSE}
+print(kvadratna1)
+```
+
+Velikost točk je sorazmerna s številom velemojstrov na prebivalca.
 
 
 
