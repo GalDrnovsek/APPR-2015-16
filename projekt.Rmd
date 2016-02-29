@@ -2,11 +2,11 @@
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
 author: "Gal Drnovšek"
 output:
-  html_document: default
   pdf_document:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
+  html_document: default
   word_document: default
 ---
 
@@ -121,6 +121,34 @@ tretji pa delež BDP namenjenega izdatkom za izobraževanje za posamezno državo
 ```{r zemljevid3, echo=FALSE, message=FALSE, warning=FALSE}
 print(zemljevid3)
 ```
+
+# Analiza podatkov
+
+V tem delu sem primerjal korelacije med deleži državnih izdatkov za šolstvo in BDP-jem na prebivalca na eni strani ter številom velemojstrov in številom velemojstrov na prebivalca na drugi strani.
+
+```{r premica1, echo=FALSE, message=FALSE, warning=FALSE}
+print(premica1)
+```
+
+V povprečju višji GDP per capita pomeni tudi večje število velemojstrov na prebivalca.
+
+```{r krivulja11, echo=FALSE, message=FALSE, warning=FALSE}
+print(krivulja1)
+```
+
+Število velemojstrov na prebivalca je v povprečju skoraj konstantno glede na delež GDP namenjen za izobraževanje, manjša rast je le pri zelo visokem deležu izdatkov.
+
+```{r premica2, echo=FALSE, message=FALSE, warning=FALSE}
+print(premica2)
+```
+
+V korelaciji števila velemostrov v odvisnosti od velikost GDP per capita so sicer podatki dokaj razpršeni, vendar je povprečje skoraj konstantno in se ne spreminja glede na velikost GDP per capita.
+
+```{r krivulja2, echo=FALSE, message=FALSE, warning=FALSE}
+print(krivulja2)
+```
+
+Do neke točke se število velemojstrov v odvisnosti od deleža GDP namenjenega za izobraževanje povečuje, potem pa začne počasi, a konstantno padati.
 
 
 
