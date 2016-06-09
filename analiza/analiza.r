@@ -105,4 +105,3 @@ m + geom_smooth(method = "lm")
 
 kvadratna1 <- m + geom_smooth(method = "lm", formula = y ~ x + I(x^2))
 kvadratna1
-
