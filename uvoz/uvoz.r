@@ -66,7 +66,7 @@ drawing_percentage <- drawing_percentage[order(-drawing_percentage$`Draw (%)`),]
 row.names(drawing_percentage) <- 1:nrow(drawing_percentage)
 most_draws <- drawing_percentage[1:10,]
 
-url2 <- "https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country"
+url2 <- "http://research.omicsgroup.org/index.php/List_of_chess_grandmasters_by_country"
 
 link2 <- sprintf(url2)
 stran2 <- html_session(link2) %>% read_html(encoding = "UTF-8")
@@ -82,6 +82,7 @@ velemojstri <- velemojstri[-1,]
 row.names(velemojstri) <- 1:nrow(velemojstri)
 velemojstri[,1] <- velemojstri[,1] %>% strapplyc("\\s+([[:alpha:]\\s&.,'-]+)") %>% unlist()
 velemojstri[,2] <- gsub("(\\[){1}(\\d){1,2}(\\]){1}", "", velemojstri[,2])
+velemojstri[47,1] <- "Switzerland"
 velemojstri[,2] <- as.numeric(velemojstri[,2])
 velemojstri[,3] <- as.numeric(velemojstri[,3])
 velemojstri$`Overall GMs` <- NULL
@@ -92,14 +93,13 @@ link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_
 stran3 <- html_session(link3) %>% read_html(encoding = "UTF-8")
 prebivalstvo <- stran3 %>% html_nodes(xpath = "//div[@id='mw-content-text']/table") %>% .[[1]] %>% html_table(fill = TRUE)
 prebivalstvo <- prebivalstvo[-1,]
-names(prebivalstvo)[3] <- "Population" 
-prebivalstvo[,2] <- gsub("^[^A-Z]+","",prebivalstvo[,2])
-prebivalstvo[,2] <- gsub("(\\[){1}(\\w){1,2}(\\]){1}","",prebivalstvo[,2])
-prebivalstvo <- prebivalstvo[grep("[0-9]+", prebivalstvo[,1]),]
+prebivalstvo <- prebivalstvo[,c(-1,-3,-4,-5,-7)]
+names(prebivalstvo)[1] <- "Country"
+names(prebivalstvo)[2] <- "Population" 
+prebivalstvo[,1] <- gsub("^[^A-Z]+","",prebivalstvo[,1])
+prebivalstvo[,1] <- gsub("(\\[){1}(\\w){1,2}(\\]){1}","",prebivalstvo[,1])
 prebivalstvo <- na.omit(prebivalstvo)
 row.names(prebivalstvo) <- 1:nrow(prebivalstvo)
-prebivalstvo$Rank <- NULL
-names(prebivalstvo)[1] <- "Country"
 prebivalstvo[,2] <- gsub("(\\,)","",prebivalstvo[,2])
 prebivalstvo[,2] <- as.numeric(prebivalstvo[,2])
 
