@@ -27,7 +27,7 @@ pretvori.zemljevid <- function(zemljevid) {
 svet <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip",
                         "ne_110m_admin_0_countries")
 
-svet<-pretvori.zemljevid(svet)
+svet <- pretvori.zemljevid(svet)
 svet <- as.data.frame(svet)
 names(GMs_per_capita)[1] <- "name"
 svet1 <- merge(svet, GMs_per_capita, all.x=TRUE)
