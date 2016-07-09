@@ -22,7 +22,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 # Izbira teme
 Odločil sem se, da bom analiziral statistiko šahovskih otvoritev, ki so bile odigrane v več kot 2 milijonih šahovskih partij. Cilj je izvedeti, katere otvoritve so statistično najboljše za igralce z belimi in igralce s črnimi figurami ter v katerih otvoritvah je največji delež remijev. Dodatno me zanima še, katere države imajo največ velemojstrov in največ velemojstrov per capita. Podatke sem pridobil na:
 
-* http://www.becomeawordgameexpert.com/stats.htm
+* http://webcache.googleusercontent.com/search?q=cache:http://www.becomeawordgameexpert.com/stats.htm&gws_rd=cr&ei=_WmBV9S6GILmUrumuMgH
 
 * https://en.wikipedia.org/wiki/List_of_chess_grandmasters_by_country
 
