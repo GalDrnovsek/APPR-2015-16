@@ -24,7 +24,7 @@ require(rvest)
 require(gsubfn)
 require(ggplot2)
 
-url1 <- "http://www.becomeawordgameexpert.com/stats.htm"
+url1 <- "http://webcache.googleusercontent.com/search?q=cache:http://www.becomeawordgameexpert.com/stats.htm&gws_rd=cr&ei=_WmBV9S6GILmUrumuMgH"
 #Over 2 million chess matches.
 link1 <- sprintf(url1)
 stran1 <- html_session(link1) %>% read_html(encoding = "UTF-8")
