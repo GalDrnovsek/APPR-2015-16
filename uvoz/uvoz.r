@@ -87,6 +87,8 @@ velemojstri[,2] <- as.numeric(velemojstri[,2])
 velemojstri[,3] <- as.numeric(velemojstri[,3])
 velemojstri$`Overall GMs` <- NULL
 velemojstri[37,1] <- "Bosnia and Herzegovina"
+velemojstri[,1] <- gsub("data","",velemojstri[,1])
+velemojstri[,1] <- gsub(" ","",velemojstri[,1])
 topvelemojstri <- velemojstri[1:10,]
 
 link3 <- "https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)"
