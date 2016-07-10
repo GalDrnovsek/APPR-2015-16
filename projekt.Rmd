@@ -146,7 +146,7 @@ print(krivulja1)
 print(premica2)
 ```
 
-V korelaciji števila velemostrov v odvisnosti od velikost GDP per capita so sicer podatki dokaj razpršeni, vendar je povprečje skoraj konstantno in se ne spreminja glede na velikost GDP per capita.
+V korelaciji števila velemostrov v odvisnosti od velikosti GDP per capita so sicer podatki dokaj razpršeni, vendar je povprečje skoraj konstantno in se ne spreminja glede na velikost GDP per capita.
 
 ```{r krivulja2, echo=FALSE, message=FALSE, warning=FALSE}
 print(krivulja2)
